@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Upload, Edit3, Brain, ArrowRight } from 'lucide-react';
+import { Upload, Edit3, Brain, ArrowRight, MessageCircle } from 'lucide-react';
 
 const HeroSection = () => {
   return (
