@@ -8,7 +8,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
   
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -21,7 +21,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-8">
             <Link
               to="/"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 isActive('/') 
                   ? 'text-blue-600 bg-blue-50' 
                   : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
@@ -33,7 +33,7 @@ const Navbar = () => {
             
             <Link
               to="/roadmap"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 isActive('/roadmap') 
                   ? 'text-blue-600 bg-blue-50' 
                   : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
@@ -45,7 +45,7 @@ const Navbar = () => {
             
             <Link
               to="/chatbot"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 isActive('/chatbot') 
                   ? 'text-blue-600 bg-blue-50' 
                   : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
@@ -57,7 +57,7 @@ const Navbar = () => {
             
             <Link
               to="/about"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 isActive('/about') 
                   ? 'text-blue-600 bg-blue-50' 
                   : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
