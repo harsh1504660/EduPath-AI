@@ -175,23 +175,23 @@ const ChatbotPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex">
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-white/80 backdrop-blur-sm border-b border-blue-100 p-4 shadow-sm">
+        <div className="bg-white/80 backdrop-blur-sm border-b border-purple-100 p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link to="/roadmap" className="text-blue-500 hover:text-blue-600 transition-colors">
+              <Link to="/roadmap" className="text-purple-500 hover:text-purple-600 transition-colors">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
               <div>
                 <h1 className="text-xl font-semibold text-gray-800">AI Tutor</h1>
-                <p className="text-sm text-blue-600">Learning: {currentTopic}</p>
+                <p className="text-sm text-purple-600">Learning: {currentTopic}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-full">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-2 rounded-full">
                 <Bot className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -209,13 +209,13 @@ const ChatbotPage = () => {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm ${
                     message.sender === 'user'
-                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
-                      : 'bg-white text-gray-800 border border-blue-100'
+                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                      : 'bg-white/80 text-gray-800 border border-purple-100 backdrop-blur-sm'
                   }`}
                 >
                   <div className="flex items-start space-x-2">
                     {message.sender === 'bot' && (
-                      <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-1 rounded-full flex-shrink-0">
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full flex-shrink-0">
                         <Bot className="h-4 w-4 text-white" />
                       </div>
                     )}
@@ -230,15 +230,15 @@ const ChatbotPage = () => {
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-800 border border-blue-100 px-4 py-3 rounded-2xl shadow-sm">
+                <div className="bg-white/80 text-gray-800 border border-purple-100 px-4 py-3 rounded-2xl shadow-sm backdrop-blur-sm">
                   <div className="flex items-center space-x-2">
-                    <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-1 rounded-full">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full">
                       <Bot className="h-4 w-4 text-white" />
                     </div>
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -249,7 +249,7 @@ const ChatbotPage = () => {
         </ScrollArea>
 
         {/* Quick Actions */}
-        <div className="bg-white/80 backdrop-blur-sm border-t border-blue-100 p-4 shadow-sm">
+        <div className="bg-white/80 backdrop-blur-sm border-t border-purple-100 p-4 shadow-sm">
           <div className="max-w-4xl mx-auto mb-4">
             <div className="flex flex-wrap gap-2">
               <Button
@@ -265,7 +265,7 @@ const ChatbotPage = () => {
                 size="sm"
                 variant="outline"
                 onClick={() => quickAction('repeat')}
-                className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                className="text-purple-600 border-purple-200 hover:bg-purple-50 hover:border-purple-300 transition-colors"
               >
                 <RotateCcw className="h-4 w-4 mr-1" />
                 Repeat
@@ -274,7 +274,7 @@ const ChatbotPage = () => {
                 size="sm"
                 variant="outline"
                 onClick={() => quickAction('help')}
-                className="text-purple-600 border-purple-200 hover:bg-purple-50 hover:border-purple-300 transition-colors"
+                className="text-pink-600 border-pink-200 hover:bg-pink-50 hover:border-pink-300 transition-colors"
               >
                 Help
               </Button>
@@ -289,12 +289,12 @@ const ChatbotPage = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask a question or type 'next' to continue..."
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="flex-1 border-blue-200 focus:border-blue-400 focus:ring-blue-200"
+                className="flex-1 border-purple-200 focus:border-purple-400 focus:ring-purple-200"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!inputValue.trim()}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 shadow-md"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-md"
               >
                 <Send className="h-4 w-4" />
               </Button>
@@ -304,10 +304,10 @@ const ChatbotPage = () => {
       </div>
 
       {/* Progress Sidebar */}
-      <div className="w-80 bg-white/80 backdrop-blur-sm border-l border-blue-100 p-6 hidden lg:block">
+      <div className="w-80 bg-white/80 backdrop-blur-sm border-l border-purple-100 p-6 hidden lg:block">
         <div className="space-y-6">
           {/* Topic Progress */}
-          <Card className="border-blue-100 shadow-sm">
+          <Card className="border-purple-100 shadow-sm bg-white/60 backdrop-blur-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg text-gray-800">Topic Progress</CardTitle>
             </CardHeader>
@@ -322,7 +322,7 @@ const ChatbotPage = () => {
           </Card>
 
           {/* Steps List */}
-          <Card className="border-blue-100 shadow-sm">
+          <Card className="border-purple-100 shadow-sm bg-white/60 backdrop-blur-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg text-gray-800">Learning Steps</CardTitle>
             </CardHeader>
@@ -333,7 +333,7 @@ const ChatbotPage = () => {
                     key={step.step}
                     className={`flex items-center space-x-3 p-3 rounded-xl transition-all ${
                       index === currentStep
-                        ? 'bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 shadow-sm'
+                        ? 'bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 shadow-sm'
                         : step.completed
                         ? 'bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200'
                         : 'bg-gray-50 border border-gray-200'
@@ -343,13 +343,13 @@ const ChatbotPage = () => {
                       step.completed
                         ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-sm'
                         : index === currentStep
-                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-sm'
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-sm'
                         : 'bg-gray-300 text-gray-600'
                     }`}>
                       {step.completed ? <CheckCircle className="h-4 w-4" /> : step.step}
                     </div>
                     <span className={`text-sm font-medium ${
-                      index === currentStep ? 'text-blue-900' : 'text-gray-700'
+                      index === currentStep ? 'text-purple-900' : 'text-gray-700'
                     }`}>
                       {step.title}
                     </span>
@@ -360,7 +360,7 @@ const ChatbotPage = () => {
           </Card>
 
           {/* Current Topic */}
-          <Card className="border-blue-100 shadow-sm">
+          <Card className="border-purple-100 shadow-sm bg-white/60 backdrop-blur-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg text-gray-800">Current Topic</CardTitle>
             </CardHeader>
@@ -369,9 +369,9 @@ const ChatbotPage = () => {
               <p className="text-sm text-gray-600 mb-4">
                 Master the fundamentals through interactive lessons
               </p>
-              <div className="bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 p-4 rounded-xl border border-blue-200">
+              <div className="bg-gradient-to-r from-purple-100 via-pink-100 to-indigo-100 p-4 rounded-xl border border-purple-200">
                 <div className="flex items-center justify-center">
-                  <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-full">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-2 rounded-full">
                     <Play className="h-6 w-6 text-white" />
                   </div>
                 </div>

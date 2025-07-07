@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 pt-8 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -17,10 +17,10 @@ const About = () => {
         </div>
 
         {/* Mission */}
-        <Card className="mb-8">
+        <Card className="mb-8 bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
-              <Target className="h-6 w-6 mr-2 text-blue-600" />
+              <Target className="h-6 w-6 mr-2 text-purple-600" />
               Our Mission
             </CardTitle>
           </CardHeader>
@@ -36,10 +36,10 @@ const About = () => {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <Card>
+          <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <GraduationCap className="h-5 w-5 mr-2 text-blue-600" />
+                <GraduationCap className="h-5 w-5 mr-2 text-purple-600" />
                 Personalized Learning
               </CardTitle>
             </CardHeader>
@@ -51,10 +51,10 @@ const About = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Zap className="h-5 w-5 mr-2 text-green-600" />
+                <Zap className="h-5 w-5 mr-2 text-pink-600" />
                 AI-Powered Tutoring
               </CardTitle>
             </CardHeader>
@@ -66,10 +66,10 @@ const About = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Users className="h-5 w-5 mr-2 text-purple-600" />
+                <Users className="h-5 w-5 mr-2 text-indigo-600" />
                 Interactive Learning
               </CardTitle>
             </CardHeader>
@@ -81,10 +81,10 @@ const About = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Target className="h-5 w-5 mr-2 text-red-600" />
+                <Target className="h-5 w-5 mr-2 text-emerald-600" />
                 Progress Tracking
               </CardTitle>
             </CardHeader>
@@ -98,14 +98,14 @@ const About = () => {
         </div>
 
         {/* How It Works */}
-        <Card className="mb-8">
+        <Card className="mb-8 bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
           <CardHeader>
             <CardTitle className="text-2xl">How EduPath AI Works</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <div className="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-blue-600 flex-shrink-0">
+                <div className="bg-purple-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-purple-600 flex-shrink-0">
                   1
                 </div>
                 <div>
@@ -118,7 +118,7 @@ const About = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="bg-green-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-green-600 flex-shrink-0">
+                <div className="bg-pink-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-pink-600 flex-shrink-0">
                   2
                 </div>
                 <div>
@@ -131,7 +131,7 @@ const About = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="bg-purple-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-purple-600 flex-shrink-0">
+                <div className="bg-indigo-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-indigo-600 flex-shrink-0">
                   3
                 </div>
                 <div>
@@ -144,7 +144,7 @@ const About = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="bg-red-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-red-600 flex-shrink-0">
+                <div className="bg-emerald-100 w-8 h-8 rounded-full flex items-center justify-center font-bold text-emerald-600 flex-shrink-0">
                   4
                 </div>
                 <div>
@@ -160,14 +160,14 @@ const About = () => {
         </Card>
 
         {/* Team */}
-        <Card>
+        <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
           <CardHeader>
             <CardTitle className="text-2xl">About the Creator</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-center">
-              <div className="bg-gradient-to-br from-blue-100 to-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-blue-600">H</span>
+              <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-purple-600">H</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Harsh</h3>
               <p className="text-gray-600 max-w-2xl mx-auto">

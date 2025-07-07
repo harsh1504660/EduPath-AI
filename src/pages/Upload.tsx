@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, FileText, Calendar, ArrowRight } from 'lucide-react';
@@ -83,7 +82,7 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 pt-8 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -97,12 +96,12 @@ const UploadPage = () => {
 
         {/* Method Selection */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white p-1 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white/80 backdrop-blur-sm p-1 rounded-lg shadow-lg border border-white/20">
             <button
               onClick={() => setUploadMethod('pdf')}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${
                 uploadMethod === 'pdf'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -112,7 +111,7 @@ const UploadPage = () => {
               onClick={() => setUploadMethod('manual')}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${
                 uploadMethod === 'manual'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -125,10 +124,10 @@ const UploadPage = () => {
           {/* Main Content */}
           <div className="md:col-span-2">
             {uploadMethod === 'pdf' ? (
-              <Card>
+              <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Upload className="h-5 w-5 mr-2 text-blue-600" />
+                    <Upload className="h-5 w-5 mr-2 text-purple-600" />
                     Upload Syllabus PDF
                   </CardTitle>
                 </CardHeader>
@@ -136,7 +135,7 @@ const UploadPage = () => {
                   <div
                     className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                       dragOver
-                        ? 'border-blue-500 bg-blue-50'
+                        ? 'border-purple-500 bg-purple-50'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     onDragOver={handleDragOver}
@@ -157,10 +156,10 @@ const UploadPage = () => {
                 </CardContent>
               </Card>
             ) : (
-              <Card>
+              <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <FileText className="h-5 w-5 mr-2 text-blue-600" />
+                    <FileText className="h-5 w-5 mr-2 text-purple-600" />
                     Enter Topics Manually
                   </CardTitle>
                 </CardHeader>
@@ -183,10 +182,10 @@ Deployment"
             )}
 
             {/* Days Input */}
-            <Card className="mt-6">
+            <Card className="mt-6 bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+                  <Calendar className="h-5 w-5 mr-2 text-purple-600" />
                   Learning Duration
                 </CardTitle>
               </CardHeader>
@@ -209,7 +208,7 @@ Deployment"
             {/* Generate Button */}
             <Button
               onClick={handleSubmit}
-              className="w-full mt-6 py-6 text-lg bg-blue-600 hover:bg-blue-700"
+              className="w-full mt-6 py-6 text-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-lg"
               size="lg"
             >
               Generate My Roadmap
@@ -219,10 +218,10 @@ Deployment"
 
           {/* Side Illustration */}
           <div className="hidden md:block">
-            <Card className="h-full">
+            <Card className="h-full bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
               <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
-                <div className="bg-gradient-to-br from-blue-100 to-green-100 w-32 h-32 rounded-full flex items-center justify-center mb-6">
-                  <Calendar className="h-16 w-16 text-blue-600" />
+                <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-32 h-32 rounded-full flex items-center justify-center mb-6">
+                  <Calendar className="h-16 w-16 text-purple-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   Smart Planning
