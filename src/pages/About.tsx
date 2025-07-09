@@ -8,7 +8,7 @@ const About = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
             About EduPath AI
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -169,7 +169,7 @@ const About = () => {
               <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-purple-600">H</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Harsh</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Harsh Joshi</h3>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 EduPath AI was created with a passion for making quality education accessible 
                 to everyone. By leveraging the power of artificial intelligence, we're building 
