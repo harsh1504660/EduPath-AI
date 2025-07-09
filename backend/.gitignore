@@ -1,0 +1,5 @@
+senv
+__pycache__
+.env
+*.pdf
+senv
