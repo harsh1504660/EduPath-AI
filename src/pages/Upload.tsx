@@ -108,7 +108,7 @@ const UploadPage = () => {
 
       try {
         console.log('Sending days (manual):', parseInt(days));
-        const res = await fetch('https://edupath-ai.onrender.com/planner-manual', {
+        const res = await fetch('https://edupath-ai.onrender.com/planner-manual',  {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
