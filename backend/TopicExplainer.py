@@ -7,7 +7,7 @@ from utils import fetch_unsplash_image, fetch_youtube_video, clean_query, LLM_se
 from langchain_core.output_parsers import StrOutputParser
 
 
-# Load API keys
+# Load API  keys
 load_dotenv()
 UNSPLASH_KEY = 'rtmBiR_8-2f0H2MMbJObYI7THw8DUI3Js5mbWF_A3oo'
 YOUTUBE_API_KEY = 'AIzaSyDkmryIR2bWT7QKUSeCkAxqy9hpIYn2vp4'

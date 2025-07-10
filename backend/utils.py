@@ -9,7 +9,7 @@ from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 UNSPLASH_KEY = os.getenv('UNSPLASH_KEY')
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 
-parser = StrOutputParser()
+parser =  StrOutputParser()
 
 
 def load_pdf(file_path):

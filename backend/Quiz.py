@@ -11,7 +11,7 @@ def quiz(topic):
     prompt = PromptDesign()
     prompt_template = prompt.prompt_for_quiz()
     parser = JsonOutputParser(key_name="questions")
-    chain = prompt_template | model | parser
+    chain = prompt_template | model |  parser
 
     result = chain.invoke({"topic": topic})
 

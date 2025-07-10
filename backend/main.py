@@ -9,7 +9,7 @@ from TopicPlanner import TopicPlanner
 from pydantic import BaseModel
 from TopicExplainer import topicExplainer
 from utils import load_pdf,LLM_setup
-from Quiz import quiz
+from Quiz import quiz 
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatHuggingFace
 from langchain.llms import HuggingFaceEndpoint

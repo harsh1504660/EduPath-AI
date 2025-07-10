@@ -6,9 +6,9 @@ from pydantic import BaseModel, Field
 from typing import List
 from utils import PromptDesign, load_pdf
 
-# Step 1: Load PDF
+# Step 1:  Load PDF
 
-# Step 2: Define Pydantic schema for structured output
+#  Step 2: Define Pydantic schema for structured output
 class DayWisePlan(BaseModel):
     day: str
     topics: str

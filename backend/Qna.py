@@ -2,7 +2,7 @@ from uuid import uuid4
 from typing import Dict
 from langchain.memory import ConversationBufferMemory
 from langchain.schema import HumanMessage
-from utils import LLM_setup
+from utils import  LLM_setup
 session_memories: Dict[str, ConversationBufferMemory] = {}
 def Qna(request):
     session_id = request.session_id or str(uuid4())
