@@ -84,7 +84,7 @@ const ChatInterface = () => {
       const parsedData = JSON.parse(localStorage.getItem('currentExplainer'));
       const topic = parsedData?.results?.[0]?.topic || 'General';
 
-      const response = await fetch('http://localhost:8000/qna', {
+      const response = await fetch('https://edupath-ai.onrender.com/qna', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

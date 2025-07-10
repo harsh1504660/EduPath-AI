@@ -119,7 +119,7 @@ const startLearning = async () => {
     try {
       setLoadingIndex(-1); // show global loading
 
-      const response = await fetch('http://localhost:8000/explainer', {
+      const response = await fetch('https://edupath-ai.onrender.com/explainer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -294,7 +294,7 @@ const startLearning = async () => {
                           try {
                             setLoadingIndex(index);
                             const response = await fetch(
-                              'http://localhost:8000/explainer',
+                              'https://edupath-ai.onrender.com/explainer',
                               {
                                 method: 'POST',
                                 headers: {

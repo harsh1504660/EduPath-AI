@@ -70,7 +70,7 @@ const UploadPage = () => {
       formData.append('file', pdfFile);
 
       try {
-        const res = await fetch('http://localhost:8000/planner', {
+        const res = await fetch('https://edupath-ai.onrender.com/planner', {
           method: 'POST',
           body: formData,
         });
@@ -108,7 +108,7 @@ const UploadPage = () => {
 
       try {
         console.log('Sending days (manual):', parseInt(days));
-        const res = await fetch('http://localhost:8000/planner-manual', {
+        const res = await fetch('https://edupath-ai.onrender.com/planner-manual', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
