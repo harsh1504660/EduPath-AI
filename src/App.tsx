@@ -51,6 +51,7 @@ const App = () => (
           <Footer />
         </div>
       </BrowserRouter>
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );
