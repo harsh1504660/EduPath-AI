@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useNavigate } from 'react-router-dom';
 import {
   Send,
@@ -140,7 +141,11 @@ const ChatInterface = () => {
                     </div>
                   )}
                   {message.sender === 'user' && <User className="h-5 w-5 mt-1 text-white" />}
-                  <p className="text-sm leading-relaxed">{message.text}</p>
+                  <div className="prose prose-sm max-w-none">
+  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    {message.text}
+  </ReactMarkdown>
+</div>
                 </div>
               </div>
             </div>

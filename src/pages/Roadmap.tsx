@@ -58,25 +58,43 @@ const launchConfetti = () => {
   });
 };
  useEffect(() => {
-  const raw = localStorage.getItem('roadmapData');
-  if (raw) {
-    try {
-      const { plan } = JSON.parse(raw)['endpoint test'];
-      const mapped: RoadmapDay[] = plan.map((entry: any, idx: number) => ({
-        day: idx + 1,
-        topic: entry.topics,
-        description: `Study topics: ${entry.topics}`,
-        completed: entry.completed || false
-      }));
-      setRoadmapData(mapped);
+  const loadRoadmapData = () => {
+    const raw = localStorage.getItem('roadmapData');
+    if (raw) {
+      try {
+        const { plan } = JSON.parse(raw)['endpoint test'];
+        const mapped: RoadmapDay[] = plan.map((entry: any, idx: number) => ({
+          day: idx + 1,
+          topic: entry.topics,
+          description: `Study topics: ${entry.topics}`,
+          completed: entry.completed || false
+        }));
+        setRoadmapData(mapped);
 
-      // Update initial progress
-      const completedCount = mapped.filter((item) => item.completed).length;
-      setProgress((completedCount / mapped.length) * 100);
-    } catch (err) {
-      console.error('Error parsing roadmap:', err);
+        // Update initial progress
+        const completedCount = mapped.filter((item) => item.completed).length;
+        setProgress((completedCount / mapped.length) * 100);
+      } catch (err) {
+        console.error('Error parsing roadmap:', err);
+      }
     }
-  }
+  };
+
+  // Load data on mount
+  loadRoadmapData();
+
+  // Listen for storage changes (when quiz completion updates localStorage)
+  const handleStorageChange = (e: StorageEvent) => {
+    if (e.key === 'roadmapData') {
+      loadRoadmapData();
+    }
+  };
+
+  window.addEventListener('storage', handleStorageChange);
+
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+  };
 }, []);
 
 const toggleComplete = (index: number) => {
@@ -240,7 +258,7 @@ const startLearning = async () => {
           {roadmapData.map((item, index) => (
             <Card
               key={index}
-              className={`mb-8 shadow-lg bg-white/90 backdrop-blur-sm border border-purple-100" ${
+              className={`mb-8 shadow-lg bg-white/90 backdrop-blur-sm border border-purple-100 relative ${
                 item.completed ? 'bg-green-50 border-green-200' : 'bg-white'
               }`}
             >
@@ -259,6 +277,8 @@ const startLearning = async () => {
                       item.day
                     )}
                   </div>
+                  
+                  
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
@@ -270,6 +290,14 @@ const startLearning = async () => {
                         <span className="text-sm text-gray-600">2-3 hours</span>
                       </div>
                     </div>
+                    
+                    {item.completed && (
+                      <div className="mb-3">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+                          🎯 Quiz Passed - Great job!
+                        </span>
+                      </div>
+                    )}
                     <p className="text-gray-600 mb-4">{item.description}</p>
 
                     <div className="flex gap-3 flex-wrap">
@@ -287,6 +315,7 @@ const startLearning = async () => {
                       </Button>
 
                       <Button
+                      className='inline-flex items-center px-3 py-1 text-sm font-medium text-purple-600 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors duration-200'
                         size="sm"
                         variant="secondary"
                         disabled={loadingIndex === index}
@@ -336,6 +365,47 @@ const startLearning = async () => {
                         ) : (
                           'Start Learning'
                         )}
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={async () => {
+                          try {
+                            setLoadingIndex(index);
+                            
+                            // Set current topic for quiz
+                            localStorage.setItem('currentTopic', JSON.stringify(item));
+                            
+                            // Generate quiz for this topic
+                            const response = await fetch('https://edupath-ai.onrender.com/quiz', {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                topics: [item.topic],
+                              }),
+                            });
+
+                            if (!response.ok) {
+                              throw new Error('Failed to generate quiz');
+                            }
+
+                            const data = await response.json();
+                            localStorage.setItem('quizData', JSON.stringify(data));
+                            
+                            navigate('/quiz');
+                          } catch (err) {
+                            console.error('Error generating quiz:', err);
+                            toast.error('Failed to generate quiz. Please try again.');
+                          } finally {
+                            setLoadingIndex(null);
+                          }
+                        }}
+                        className="border-orange-300 text-orange-600 hover:bg-orange-50"
+                      >
+                        🎯 Take Quiz
                       </Button>
                     </div>
                   </div>

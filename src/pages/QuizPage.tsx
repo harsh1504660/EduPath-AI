@@ -30,6 +30,51 @@ const QnaPage = () => {
   
 const navigate = useNavigate();
 
+// Function to mark roadmap topic as completed
+const markRoadmapTopicCompleted = () => {
+  try {
+    // Get current topic from localStorage
+    const currentTopicData = localStorage.getItem('currentTopic');
+    if (!currentTopicData) {
+      console.log('No current topic found');
+      return;
+    }
+
+    const currentTopic = JSON.parse(currentTopicData);
+    const topicTitle = currentTopic.topic;
+
+    // Get roadmap data from localStorage
+    const roadmapDataRaw = localStorage.getItem('roadmapData');
+    if (!roadmapDataRaw) {
+      console.log('No roadmap data found');
+      return;
+    }
+
+    const roadmapData = JSON.parse(roadmapDataRaw);
+    const plan = roadmapData['endpoint test'].plan;
+
+    // Find the topic in the roadmap and mark it as completed
+    const topicIndex = plan.findIndex((item: any) => item.topics === topicTitle);
+    
+    if (topicIndex !== -1) {
+      plan[topicIndex].completed = true;
+      localStorage.setItem('roadmapData', JSON.stringify(roadmapData));
+      
+      toast.success('🎉 This section is completed!', {
+        description: `You've successfully completed: ${topicTitle}`,
+        position: 'top-center',
+        duration: 4000,
+      });
+      
+      console.log(`Marked topic "${topicTitle}" as completed`);
+    } else {
+      console.log(`Topic "${topicTitle}" not found in roadmap`);
+    }
+  } catch (error) {
+    console.error('Error marking topic as completed:', error);
+  }
+};
+
 useEffect(() => {
   const stored = localStorage.getItem('quizData');
   if (!stored) return;
@@ -79,13 +124,20 @@ useEffect(() => {
   }, [currentIndex]);
 
   const handleNext = () => {
-    if (selectedOption === questions[currentIndex].answer) {
-      setScore((prev) => prev + 1);
-    }
+    const isCorrect = selectedOption === questions[currentIndex].answer;
+    const newScore = isCorrect ? score + 1 : score;
 
     if (currentIndex === questions.length - 1) {
+      setScore(newScore);
       setIsFinished(true);
+      
+      // Check if user passed the quiz (score >= 50%)
+      if (newScore >= questions.length / 2) {
+        // Mark the roadmap topic as completed
+        markRoadmapTopicCompleted();
+      }
     } else {
+      setScore(newScore);
       setSelectedOption(null);
       setShowAnswer(false);
       setCurrentIndex((prev) => prev + 1);
@@ -215,7 +267,7 @@ useEffect(() => {
           onClick={() => navigate('/roadmap')}
           className="bg-purple-200 hover:bg-gray-300 text-purple-700 font-semibold px-6 py-2 rounded-lg"
         >
-          Return
+          Return to Roadmap
         </Button>
       </div>
     </div>
