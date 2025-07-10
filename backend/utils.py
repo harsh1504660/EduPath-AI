@@ -116,6 +116,7 @@ def LLM_setup():
     llm = HuggingFaceEndpoint(
         repo_id="meta-llama/Llama-3.1-8B-Instruct",
         task="text-generation",
+        huggingfacehub_api_token=os.environ.get("HUGGINGFACE_TOKEN")
     )
     return ChatHuggingFace(llm=llm)
 

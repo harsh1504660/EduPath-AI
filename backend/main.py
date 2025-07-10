@@ -25,7 +25,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:8080",
-        "https://edu-path-ai-swart.vercel.app/"
+        "https://edu-path-ai-theta.vercel.app"
     ],
     allow_methods=["*"],
     allow_headers=["*"],

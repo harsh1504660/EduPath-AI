@@ -21,7 +21,7 @@ class StudyPlan(BaseModel):
 
 
 # Step 4: Load model
-
+import os 
 def TopicPlanner(retrieved_syllabus_text,total_days):
 
     Prompt = PromptDesign()
@@ -30,6 +30,7 @@ def TopicPlanner(retrieved_syllabus_text,total_days):
     llm = HuggingFaceEndpoint(
         repo_id="meta-llama/Llama-3.1-8B-Instruct",
         task="text-generation",
+        huggingfacehub_api_token=os.environ.get("HUGGINGFACE_TOKEN")
     )
     model = ChatHuggingFace(llm=llm)
 
