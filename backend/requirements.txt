@@ -4,3 +4,4 @@ uvicorn
 langchain_core
 langchain_community
 langchain_huggingface
+python-multipart
