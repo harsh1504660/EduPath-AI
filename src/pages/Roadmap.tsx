@@ -10,6 +10,7 @@ import {
   Play,
   Loader2
 } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -406,6 +407,48 @@ const startLearning = async () => {
                         className="border-orange-300 text-orange-600 hover:bg-orange-50"
                       >
                         🎯 Take Quiz
+                      </Button>
+                                            <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={async () => {
+                          try {
+                            setLoadingIndex(index);
+                            
+                            // Set current topic for quiz
+                           const uniqueId = uuidv4();
+
+      const parsedData = JSON.parse(localStorage.getItem('currentExplainer'));
+      console.log('Parsed Data:', parsedData.results[0].topic);
+
+      const response = await fetch('https://edupath-ai.onrender.com/qna', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: uniqueId,
+          topic: parsedData.results[0].topic,
+          question: 'Start Question Session',
+        }),
+      });
+
+                            if (!response.ok) {
+                              throw new Error('Failed to generate quiz');
+                            }
+
+                            const data = await response.json();
+                            localStorage.setItem('quizData', JSON.stringify(data));
+                            
+                            navigate('/qna');
+                          } catch (err) {
+                            console.error('Error generating quiz:', err);
+                            toast.error('Failed to generate quiz. Please try again.');
+                          } finally {
+                            setLoadingIndex(null);
+                          }
+                        }}
+                        className="border-red-300 text-red-600 hover:bg-red-50"
+                      >
+                        Ask Doubts
                       </Button>
                     </div>
                   </div>
