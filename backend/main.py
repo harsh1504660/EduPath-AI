@@ -23,16 +23,21 @@ app = FastAPI()
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins, adjust as needed
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
+    allow_origins=[
+        "http://localhost:8080",
+        "https://edu-path-ai-swart.vercel.app/"
+    ],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,  # Only True if you're using cookies/auth headers
 )
-
 @app.get("/")
 def root():
-    return {"message" : "the site is under development"}
+    return {"message" : "The site is live!"}
 
+@app.get("/health")
+def health_check(): 
+    return {"status": "ok"}
 
 @app.post("/planner")
 async def planner(total_days: int = Form(...), file: UploadFile = File(...)):
