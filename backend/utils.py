@@ -74,7 +74,7 @@ def fetch_unsplash_image(query):
 
 def fetch_youtube_video(query):
     try:
-        full_query = f"{query} animated explainer for students"
+        full_query = f"{query} explainer for students"
         url = "https://www.googleapis.com/youtube/v3/search"
         params = {
             "part": "snippet",
@@ -200,7 +200,7 @@ class PromptDesign:
     - \"title\": Subtopic name
     - \"explanation\": Clear, student-friendly explanation
     - \"image_suggestion\": If a diagram, chart, or photo would improve understanding, suggest a short and specific image search query. Include the topic’s key terms and the type of image (e.g., diagram, chart, photo, flowchart). Prefer educational formats like: 'X concept diagram', 'Y process flowchart', or 'Z model chart'. Return only the search query string. If not applicable, return null.
-    - \"video_suggestion\": Always use null. The video will be suggested at the end of the topic.
+    - \"video_suggestion\": Always use null. The video will be suggested at the end of the topic suggest video according to the title and by refering to the title.
     Respond ONLY in valid JSON list format:
     [
     {{
