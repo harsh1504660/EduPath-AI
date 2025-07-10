@@ -1,2 +1,6 @@
 langchain
- 
+fastapi
+uvicorn
+langchain_core
+langchain_community
+langchain_huggingfac
