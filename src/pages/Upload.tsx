@@ -14,62 +14,76 @@ const UploadPage = () => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [isDemo, setIsDemo] = useState(false);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Load demo PDF from public directory
+  const [errors, setErrors] = useState({
+    days: '',
+    topics: '',
+    pdf: '',
+  });
+
   const handleDemoUpload = async () => {
     try {
       const response = await fetch('/demo-syllabus.pdf');
       const blob = await response.blob();
       const demoFile = new File([blob], 'demo-syllabus.pdf', { type: 'application/pdf' });
-      
       setPdfFile(demoFile);
       setIsDemo(true);
-      setDays('30'); // Set default demo duration
-      
+      setDays('30');
       toast({
         title: 'Demo PDF loaded!',
         description: 'Sample syllabus ready for processing',
         variant: 'default',
       });
-    } catch (error) {
+    } catch {
       toast({
         title: 'Demo PDF not found',
-        description: 'Please make sure demo-syllabus.pdf is in the public directory',
+        description: 'Make sure demo-syllabus.pdf is in the public directory',
         variant: 'destructive',
       });
     }
   };
 
   const handleSubmit = async () => {
-    if (!days || parseInt(days) <= 0) {
+    let newErrors = { days: '', topics: '', pdf: '' };
+
+    if (!days) {
+      newErrors.days = 'Please enter the number of days';
+    } else if (parseInt(days) <= 0) {
+      newErrors.days = 'Days must be greater than 0';
+    }
+
+    if (uploadMethod === 'pdf') {
+      if (!pdfFile) {
+        newErrors.pdf = 'Please upload a PDF file';
+      }
+    } else {
+      if (!topics.trim()) {
+        newErrors.topics = 'Please enter some topics';
+      }
+    }
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(e => e !== '');
+    if (hasErrors) {
       toast({
-        title: 'Invalid duration',
-        description: 'Please enter a valid number of days',
+        title: 'Please fix the errors',
+        description: 'Missing or invalid input',
         variant: 'destructive',
       });
       return;
     }
 
     setLoading(true);
-    
-    if (uploadMethod === 'pdf') {
-      if (!pdfFile) {
-        toast({
-          title: 'No PDF uploaded',
-          description: 'Please upload your syllabus PDF or try the demo',
-          variant: 'destructive',
-        });
-        setLoading(false);
-        return;
-      }
 
-      const formData = new FormData();
-      formData.append('total_days', String(parseInt(days)));
-      formData.append('file', pdfFile);
+    try {
+      if (uploadMethod === 'pdf') {
+        const formData = new FormData();
+        formData.append('total_days', String(parseInt(days)));
+        formData.append('file', pdfFile as Blob);
 
-      try {
         const res = await fetch('https://edupath-ai.onrender.com/planner', {
           method: 'POST',
           body: formData,
@@ -80,43 +94,13 @@ const UploadPage = () => {
           localStorage.setItem('roadmapData', JSON.stringify(data));
           navigate('/roadmap');
         } else {
-          toast({
-            title: 'Failed to generate roadmap',
-            description: 'Please try again.',
-            variant: 'destructive',
-          });
+          toast({ title: 'Failed to generate roadmap', description: 'Please try again.', variant: 'destructive' });
         }
-      } catch (err) {
-        console.error(err);
-        toast({
-          title: 'Error',
-          description: 'Something went wrong while generating your plan.',
-          variant: 'destructive',
-        });
-      }
-    } else {
-      // Manual entry block
-      if (!topics.trim()) {
-        toast({
-          title: 'Please enter topics',
-          description: 'Add the topics you want to learn',
-          variant: 'destructive',
-        });
-        setLoading(false);
-        return;
-      }
-
-      try {
-        console.log('Sending days (manual):', parseInt(days));
-        const res = await fetch('https://edupath-ai.onrender.com/planner-manual',  {
+      } else {
+        const res = await fetch('https://edupath-ai.onrender.com/planner-manual', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            total_days: parseInt(days),
-            topic: topics.trim(),
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ total_days: parseInt(days), topic: topics.trim() }),
         });
 
         const data = await res.json();
@@ -124,22 +108,18 @@ const UploadPage = () => {
           localStorage.setItem('roadmapData', JSON.stringify(data));
           navigate('/roadmap');
         } else {
-          toast({
-            title: 'Failed to generate roadmap',
-            description: 'Please try again.',
-            variant: 'destructive',
-          });
+          toast({ title: 'Failed to generate roadmap', description: 'Please try again.', variant: 'destructive' });
         }
-      } catch (err) {
-        console.error(err);
-        toast({
-          title: 'Error',
-          description: 'Something went wrong while generating your plan.',
-          variant: 'destructive',
-        });
       }
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Error',
+        description: 'Something went wrong while generating your plan.',
+        variant: 'destructive',
+      });
     }
-    
+
     setLoading(false);
   };
 
@@ -156,23 +136,13 @@ const UploadPage = () => {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      if (file.type === 'application/pdf') {
-        setPdfFile(file);
-        setIsDemo(false);
-        toast({
-          title: 'PDF uploaded successfully!',
-          description: `File: ${file.name}`,
-        });
-      } else {
-        toast({
-          title: 'Invalid file type',
-          description: 'Please upload a PDF file',
-          variant: 'destructive',
-        });
-      }
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      setPdfFile(file);
+      setIsDemo(false);
+      toast({ title: 'PDF uploaded!', description: `File: ${file.name}` });
+    } else {
+      toast({ title: 'Invalid file type', description: 'Please upload a PDF', variant: 'destructive' });
     }
   };
 
@@ -181,16 +151,9 @@ const UploadPage = () => {
     if (file && file.type === 'application/pdf') {
       setPdfFile(file);
       setIsDemo(false);
-      toast({
-        title: 'PDF uploaded!',
-        description: `File: ${file.name}`,
-      });
+      toast({ title: 'PDF uploaded!', description: `File: ${file.name}` });
     } else {
-      toast({
-        title: 'Invalid file type',
-        description: 'Please upload a PDF',
-        variant: 'destructive',
-      });
+      toast({ title: 'Invalid file type', description: 'Please upload a PDF', variant: 'destructive' });
     }
   };
 
@@ -198,9 +161,7 @@ const UploadPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Create Your Learning Plan
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Create Your Learning Plan</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Upload your syllabus or enter topics manually to generate a personalized roadmap
           </p>
@@ -268,9 +229,7 @@ const UploadPage = () => {
                     <p className="text-gray-600 mb-4">
                       {pdfFile ? (isDemo ? 'Demo file loaded' : 'File ready for processing') : 'or click to browse files'}
                     </p>
-                    {!pdfFile && (
-                      <Input type="file" accept="application/pdf" onChange={handleFileInput} />
-                    )}
+                    {!pdfFile && <Input type="file" accept="application/pdf" onChange={handleFileInput} />}
                     {pdfFile && (
                       <Button
                         onClick={() => {
@@ -284,6 +243,7 @@ const UploadPage = () => {
                         Remove File
                       </Button>
                     )}
+                    {errors.pdf && <p className="text-red-500 text-sm mt-2">{errors.pdf}</p>}
                   </div>
                 </CardContent>
               </Card>
@@ -300,13 +260,13 @@ const UploadPage = () => {
                     placeholder="Enter any topic you want to learn..."
                     value={topics}
                     onChange={(e) => setTopics(e.target.value)}
-                    className="min-h-[200px] resize-none"
+                    className={`min-h-[200px] resize-none ${errors.topics ? 'border-red-500' : ''}`}
                   />
+                  {errors.topics && <p className="text-red-500 text-sm mt-1">{errors.topics}</p>}
                 </CardContent>
               </Card>
             )}
 
-            {/* Days Input */}
             <Card className="mt-6 bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
               <CardHeader>
                 <CardTitle className="flex items-center">
@@ -318,20 +278,19 @@ const UploadPage = () => {
                 <div className="flex items-center space-x-4">
                   <Input
                     type="number"
-                    placeholder=" 30"
+                    placeholder="30"
                     value={days}
                     onChange={(e) => setDays(e.target.value)}
-                    className="w-32"
+                    className={`w-32 ${errors.days ? 'border-red-500' : ''}`}
                     min="1"
                     max="365"
                   />
-                  
                   <span className="text-gray-600">days to complete</span>
                 </div>
+                {errors.days && <p className="text-red-500 text-sm mt-1">{errors.days}</p>}
               </CardContent>
             </Card>
 
-            {/* Generate Button */}
             <Button
               onClick={handleSubmit}
               disabled={loading}
@@ -355,7 +314,6 @@ const UploadPage = () => {
             </Button>
           </div>
 
-          {/* Sidebar Card */}
           <div className="hidden md:block">
             <Card className="h-full bg-white/80 backdrop-blur-sm shadow-lg border border-white/20">
               <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
