@@ -2,6 +2,8 @@
 
 EduPath AI is a smart, AI-powered platform designed to generate **personalized learning paths** for students and lifelong learners. By analyzing a user's current knowledge, career goals, and time availability, EduPath AI crafts an optimal study roadmap using curated resources, technologies, and assessments.
 
+🔗 **Live Demo / GitHub Repo**: [EduPath AI](https://edu-path-ai-theta.vercel.app/)
+
 ---
 
 ## 🚀 Features
