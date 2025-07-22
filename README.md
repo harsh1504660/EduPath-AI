@@ -64,3 +64,23 @@ EduPath AI is a smart, AI-powered platform designed to generate **personalized l
 ```bash
 git clone https://github.com/yourusername/edupath-ai.git
 cd edupath-ai
+```
+### 2. Install packages
+```bash
+npm install
+```
+### 3. Run frontend
+```bash
+npm run dev
+```
+### 4. Install backend packages
+```bash
+cd backend
+python -m venv env
+env/Script/activate
+pip install -r requirements.txt 
+```
+### 5. Run backend
+```bash
+python main.py
+```
