@@ -138,7 +138,7 @@ const startLearning = async () => {
     try {
       setLoadingIndex(-1); // show global loading
 
-      const response = await fetch('https://edupath-ai.onrender.com/explainer', {
+      const response = await fetch('https://edupathai-backend.onrender.com/explainer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -324,7 +324,7 @@ const startLearning = async () => {
                           try {
                             setLoadingIndex(index);
                             const response = await fetch(
-                              'https://edupath-ai.onrender.com/explainer',
+                              'https://edupathai-backend.onrender.com/explainer',
                               {
                                 method: 'POST',
                                 headers: {
@@ -379,7 +379,7 @@ const startLearning = async () => {
                             localStorage.setItem('currentTopic', JSON.stringify(item));
                             
                             // Generate quiz for this topic
-                            const response = await fetch('https://edupath-ai.onrender.com/quiz', {
+                            const response = await fetch('https://edupathai-backend.onrender.com/quiz', {
                               method: 'POST',
                               headers: {
                                 'Content-Type': 'application/json',
@@ -421,7 +421,7 @@ const startLearning = async () => {
       const parsedData = JSON.parse(localStorage.getItem('currentExplainer'));
       console.log('Parsed Data:', parsedData.results[0].topic);
 
-      const response = await fetch('https://edupath-ai.onrender.com/qna', {
+      const response = await fetch('https://edupathai-backend.onrender.com/qna', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

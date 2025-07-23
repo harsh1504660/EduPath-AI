@@ -211,7 +211,7 @@ const ChatbotPage = () => {
 
       if (!topicName) throw new Error('Topic not found');
 
-      const res = await fetch('https://edupath-ai.onrender.com/quiz', {
+      const res = await fetch('https://edupathai-backend.onrender.com/quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topics: [topicName] }) // ✅ send topic string
@@ -240,7 +240,7 @@ const ChatbotPage = () => {
       const parsedData = JSON.parse(localStorage.getItem('currentExplainer'));
       console.log('Parsed Data:', parsedData.results[0].topic);
 
-      const res = await fetch('https://edupath-ai.onrender.com/qna', {
+      const res = await fetch('https://edupathai-backend.onrender.com/qna', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

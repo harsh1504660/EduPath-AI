@@ -84,7 +84,7 @@ const UploadPage = () => {
         formData.append('total_days', String(parseInt(days)));
         formData.append('file', pdfFile as Blob);
 
-        const res = await fetch('https://edupath-ai.onrender.com/planner', {
+        const res = await fetch('https://edupathai-backend.onrender.com/planner', {
           method: 'POST',
           body: formData,
         });
@@ -97,7 +97,7 @@ const UploadPage = () => {
           toast({ title: 'Failed to generate roadmap', description: 'Please try again.', variant: 'destructive' });
         }
       } else {
-        const res = await fetch('https://edupath-ai.onrender.com/planner-manual', {
+        const res = await fetch('https://edupathai-backend.onrender.com/planner-manual', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ total_days: parseInt(days), topic: topics.trim() }),
